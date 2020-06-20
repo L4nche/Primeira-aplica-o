@@ -31,10 +31,11 @@ class Modal{
             this.modeloPost = {
                 titulo: this.titulo.value,
                 conteudo: this.conteudo.value,
-                autor: this.autor.value }
+                autor: this.autor.value 
+            }
 
             this.postSection.innerHTML = `
-                <div id='post'> 
+                <div class='post'> 
                     <h2>${this.modeloPost.titulo}</h2> 
     
                     <p> &nbsp; ${this.modeloPost.conteudo}
@@ -65,12 +66,13 @@ class Modal{
 
     postarPublicacao(event){
         this.esconderModal(event);
+
         this.secaoPosts = document.querySelector("#post-postados");
-        
+        // let numberOfPosts = document.querySelectorAll("#post-postados > section");
 
         this.sectionPost = document.createElement('section');
         this.sectionPost.innerHTML = `
-        <img id="apagar"  src="assets/imagens/lixo.png" alt="">
+        <img class="apagar"  src="assets/imagens/lixo.png" alt="">
         <h2>${this.modeloPost.titulo}</h2>  
     
         <p> &nbsp; ${this.modeloPost.conteudo}
@@ -79,16 +81,23 @@ class Modal{
         <h4> enviado por ${this.modeloPost.autor} </h4> 
         `
         
+        //let copiaPost = this.sectionPost.cloneNode(true);
+        
         this.secaoPosts.appendChild(this.sectionPost);
 
-        this.lixeira = document.querySelector(`#apagar`)
-        this.lixeira.addEventListener('click', this.apagarPublicacao.bind(this));
+        //console.log("adicionado: " , this.sectionPost);
+        
+        this.lixeira = document.querySelectorAll(`.apagar`);
+        for (let element of this.lixeira) {
+            element.addEventListener('click', this.apagarPublicacao);
+        }
+        //this.lixeira.addEventListener
         
     }
 
     apagarPublicacao(){
-        console.log(this.sectionPost)
-        this.secaoPosts.removeChild(this.sectionPost);
+        //console.log("apagado: " + JSON.stringify(this));
+        this.parentNode.remove();
     }
 }
 
@@ -173,7 +182,7 @@ function cssSection () {
             z-index: 100;
         }
 
-        #post{
+        .post{
             width: 100%;
             margin:auto;
             padding-left: 10px;
